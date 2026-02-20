@@ -4,8 +4,10 @@ Homo-Sapians dataset was used for varaint calling analysis starting from the qua
 
 
 # Quality Check
-FastQC is used to assess the quality of raw sequencing data. It generates reports on read quality, GC content, adapter contamination, sequence duplication levels, and other metrics.
+
+FastQC was used to assess the quality of raw sequencing data. It generates reports on read quality, GC content, adapter contamination, sequence duplication levels, and other metrics.
 Checking data quality is very important before proceding to the trimming and alignment.
+
 # Trimming
 
 Fastp tool was utilized to filter out low quality bases, adapters and other unwanted sequences from raw reads.This step ensures the high quality reads are used.
@@ -100,12 +102,20 @@ snpEff ann GRCh38.86 output.vcf > annotated.vcf
 
 # bcftools:
 
-Try visualizing genes.
+grep -E "BRCA1|TP53|APP" annotated.vcf > genes_of_interest.vcf
 
-E.g : grep -E "BRCA1|TP53|APP" annotated.vcf
+bcftools view -i 'INFO/ANN ~ "HIGH"' annotated.vcf > high_impact.vcf
 
-To visualize or identify one specific gene of your interest: 
+bcftools view -h annotated.vcf | grep -E "##INFO"
 
-bcftools view -i 'INFO/ANN ~ "TP53"' annotated.vcf > TP53_variants.vcf
+bcftools view -h annotated.vcf | grep -E "##FORMAT"
 
+bcftools view -i 'GT="0/1"' annotated.vcf > het.vcf
 
+bcftools view -i 'GT="1/1"' annotated.vcf > Homo.vcf
+
+bcftools view -i 'GT="0/0"' annotated.vcf > Homo.vcf
+
+bcftools view -i 'GT="1/1" || GT="0/0"' annotated.vcf > homo.vcf
+
+*** search for more commands to play around***
