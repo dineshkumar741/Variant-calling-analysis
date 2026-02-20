@@ -100,7 +100,7 @@ java -jar snpEff.jar GRCh38.99 output.vcf > annotated.vcf
 
 snpEff ann GRCh38.86 output.vcf > annotated.vcf
 
-# bcftools:
+# bcftool
 
 grep -E "BRCA1|TP53|APP" annotated.vcf > genes_of_interest.vcf
 
