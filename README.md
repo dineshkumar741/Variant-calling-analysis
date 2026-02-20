@@ -7,15 +7,26 @@ Homo-Sapians dataset was used for varaint calling analysis starting from the qua
 FastQC is used to assess the quality of raw sequencing data. It generates reports on read quality, GC content, adapter contamination, sequence duplication levels, and other metrics.
 Checking data quality is very important before proceding to the trimming and alignment.
 # Trimming
+
 Fastp tool was utilized to filter out low quality bases, adapters and other unwanted sequences from raw reads.This step ensures the high quality reads are used.
-# Alignment
-BWA tool was used to map the reads using reference genome (hg38). This step produces the aligment files in SAM format.
+
+sudo apt-get install default-jdk -y
+
+java -version
+
+Example: fastp -i ***fastq.gz -I ***fastq.gz -o trimmed_FW.fastq.gz -O trimmed_REV.fastq.gz -q 20
+
+# Indexing 
 
 sudo apt install bwa
 
 conda install -c bioconda bwa
 
 bwa index hg38.fna
+
+# Alignment
+
+BWA tool was used to map the reads using reference genome (hg38). This step produces the aligment files in SAM format.
 
 bwa mem hg38.fna output_FW.fastq output_REV.fastq > output.sam
 
@@ -56,9 +67,9 @@ conda activate freebayes_env
 
 Install FreeBayes from bioconda (with conda-forge as dependency channel)
 
-conda install -c conda-forge -c bioconda freebayes
-
 conda activate freebayes_env
+
+conda install -c conda-forge -c bioconda freebayes
 
 freebayes -f hg38.fna sorted.bam > output.vcf
 
@@ -87,5 +98,14 @@ java -jar snpEff.jar GRCh38.99 output.vcf > annotated.vcf
 
 snpEff ann GRCh38.86 output.vcf > annotated.vcf
 
+# bcftools:
+
+Try visualizing genes.
+
+E.g : grep -E "BRCA1|TP53|APP" annotated.vcf
+
+To visualize or identify one specific gene of your interest: 
+
+bcftools view -i 'INFO/ANN ~ "TP53"' annotated.vcf > TP53_variants.vcf
 
 
