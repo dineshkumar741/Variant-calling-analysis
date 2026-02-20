@@ -11,21 +11,21 @@ Fastp tool was utilized to filter out low quality bases, adapters and other unwa
 # Alignment
 BWA tool was used to map the reads using reference genome (hg38). This step produces the aligment files in SAM format.
 
-**sudo apt install bwa**
-**conda install -c bioconda bwa**
-**bwa index hg38.fna**
-**bwa mem hg38.fna output_FW.fastq output_REV.fastq > output.sam**
+# sudo apt install bwa**
+# conda install -c bioconda bwa**
+# bwa index hg38.fna**
+# bwa mem hg38.fna output_FW.fastq output_REV.fastq > output.sam**
 
 # Sorting
 SAM file was converted into the BAM file with the help of SAMtools which is further sorted by genomic coordinates to prepare them for variant calling.
 
-**sudo apt install samtools**
-**samtools view output.sam**
-**samtools index output.sam**
-**samtools view -bS output.sam > output.bam**
-**samtools sort -o sorted.bam output.bam**
-**samtools index sorted.bam**
-**samtools view sorted.bam**
+# sudo apt install samtools**
+# samtools view output.sam**
+# samtools index output.sam**
+# samtools view -bS output.sam > output.bam**
+# samtools sort -o sorted.bam output.bam**
+# samtools index sorted.bam**
+# samtools view sorted.bam**
 
 # Variant Calling
 variant calling focuses on identifying the genomic differences (i.e SNPs and indels) between reference genome and aligned reads.freebayes identifies the variants by generating the variant call format files (VCF).
