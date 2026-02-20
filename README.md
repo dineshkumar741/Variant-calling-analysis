@@ -11,12 +11,16 @@ Fastp tool was utilized to filter out low quality bases, adapters and other unwa
 # Alignment
 BWA tool was used to map the reads using reference genome (hg38). This step produces the aligment files in SAM format.
 
-# sudo apt install bwa
-# conda install -c bioconda bwa
-# bwa index hg38.fna
-# bwa mem hg38.fna output_FW.fastq output_REV.fastq > output.sam
+sudo apt install bwa
 
-# Sorting
+conda install -c bioconda bwa
+
+bwa index hg38.fna
+
+bwa mem hg38.fna output_FW.fastq output_REV.fastq > output.sam
+
+Sorting
+
 SAM file was converted into the BAM file with the help of SAMtools which is further sorted by genomic coordinates to prepare them for variant calling.
 
 # sudo apt install samtools
